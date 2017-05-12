@@ -72,7 +72,6 @@ function CargarCategorias() {
     var c = null;
     var cate="";
     c = categorias;
-console.log("khe verga!");
     for (var i = 0; i < c.length; i++) {
         cate += "<li><a href='#' class="+c[i].categori_id+">" + c[i].name + "</a></li>";
     }

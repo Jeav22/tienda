@@ -66,19 +66,6 @@ function mostrar() {
     $(".tienda").html(org);
 }
 
-//-----Cargar Categorias---------------------------------------------------
-
-function CargarCategorias() {
-    var c = null;
-    var cate="";
-    c = categorias;
-console.log("khe verga!");
-    for (var i = 0; i < c.length; i++) {
-        cate += "<li><a href='#' class="+c[i].categori_id+">" + c[i].name + "</a></li>";
-    }
-    $(".cat").html(cate);
-}
-
 //-----Sort----------------------------------------------------------------
 
 var sort_by = function(field, reverse, primer) {
@@ -92,7 +79,6 @@ var sort_by = function(field, reverse, primer) {
         return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
     }
 }
-
 
 //-----Ordenar por nombre--------------------------------------------------
 function ordenarNombre() {

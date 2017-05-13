@@ -7,12 +7,12 @@ var session = require("express-session");
 var bcrypt = require("bcrypt-nodejs");
 var UsuarioModel = require("../models/usuarios");
 var bodyParse = require("body-parser");
-var urlencodedParse = bodyParse.urlencoded({ extend: false });
+var urlencodedParse = bodyParse.urlencoded({ extended: false });
 
 router.post("/iniciarSesion", urlencodedParse, function(req, res, next) {
     passport.authenticate('local', {
             sucessRedirect: "/bienvenido",
-            failureRedirect: "../login"
+            failureRedirect: "/login"
         },
         function(err, usuario, info) {
             if (err) {
@@ -38,7 +38,7 @@ router.post("/signup", function(req, res) {
     return usuarioPromise.then(
         function(modelo) {
             if (modelo) {
-                res.render("../login", { tittle: "Registrar usuario", error: "El usuario exisite" });
+                res.render("login", { tittle: "Registrar usuario", error: "El usuario exisite" });
             } else {
                 usuario.clave = bcrypt.hashSync(usuario.clave);
                 var modeloUsuario = new UsuarioModel.usuarios({
@@ -48,7 +48,7 @@ router.post("/signup", function(req, res) {
                     clave: usuario.clave
                 });
                 modeloUsuario.save().then(function(modelo) {
-                    res.render("../login", { tittle: "Registrar usuario", error: "El usuario fue creado" });
+                    res.render("login", { tittle: "Registrar usuario", error: "El usuario fue creado" });
                 });
             }
         }

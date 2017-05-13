@@ -26,85 +26,83 @@ var app = express();
 
 //Configuracion passport
 passport.use(new LocalStrategy(
-  function (correo, clave, done) {
-    new UsuarioModel.usuarios({ correo: correo }).fetch().then(
-      function (info) {
-        var usuarioInfo = info;
-        if (usuarioInfo == null) {
-          return done(null, false, { mensaje: "Email no valido." });
-        } else {
-          usuarioInfo = usuarioInfo.toJSON();
-          if (!bcrypt.compareSync(clave, usuarioInfo.clave)) {
-            return done(null, false, { mensaje: "Clave no valida." });
-          } else {
-            return done(null, usuarioInfo);
-          }
-        }
-      }
-    );
-  }
+    function(correo, clave, done) {
+        new UsuarioModel.usuarios({ correo: correo }).fetch().then(
+            function(info) {
+                var usuarioInfo = info;
+                if (usuarioInfo == null) {
+                    return done(null, false, { mensaje: "Email no valido." });
+                } else {
+                    usuarioInfo = usuarioInfo.toJSON();
+                    if (!bcrypt.compareSync(clave, usuarioInfo.clave)) {
+                        return done(null, false, { mensaje: "Clave no valida." });
+                    } else {
+                        return done(null, usuarioInfo);
+                    }
+                }
+            }
+        );
+    }
 ));
 
 passport.use(
-  new FacebookStrategy(
-    {
-      clientID: '1432424166827766',
-      clientSecret: 'a0d16b19c57fbe6ca600bad496bd165b',
-      callbackURL: "https://registrousaa.herokuapp.com/users/auth/facebook/callback",
-      profileFields: ["emails", "displayName"]
-    },
-    function (token, refreshToken, profile, done) {
-      console.log(profile);
-      process.nextTick(
-        function () {
-          User.findOne(
-            { 'facebook.id': profile.id },
-            function (err, user) {
-              if (err)
-                return done(err);
-              if (user) {
-                return done(null, user)
-              }else{
-                var newUser = new User();
-                newUser.facebook.id = profile.id;
-                newUser.facebook.token = token;
-                newUser.facebook.name = profile.displayName;
-                newUser.facebook.email = profile.id;
-                newUser.save(
-                  function(err){
-                    if(err)
-                      throw err;
-                    return done(null, newUser);
-                  }
-                );
-              }
-            }
-          );
+    new FacebookStrategy({
+            clientID: '1432424166827766',
+            clientSecret: 'a0d16b19c57fbe6ca600bad496bd165b',
+            callbackURL: "https://registrousaa.herokuapp.com/users/auth/facebook/callback",
+            profileFields: ["emails", "displayName"]
+        },
+        function(token, refreshToken, profile, done) {
+            console.log(profile);
+            process.nextTick(
+                function() {
+                    User.findOne({ 'facebook.id': profile.id },
+                        function(err, user) {
+                            if (err)
+                                return done(err);
+                            if (user) {
+                                return done(null, user)
+                            } else {
+                                var newUser = new User();
+                                newUser.facebook.id = profile.id;
+                                newUser.facebook.token = token;
+                                newUser.facebook.name = profile.displayName;
+                                newUser.facebook.email = profile.id;
+                                newUser.save(
+                                    function(err) {
+                                        if (err)
+                                            throw err;
+                                        return done(null, newUser);
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+            );
         }
-      );
-    }
-  )
+    )
 );
 
 passport.serializeUser(
-  function (usuario, done) {
-    done(null,usuario);
-  }
+    function(usuario, done) {
+        done(null, usuario);
+    }
 );
 
 passport.deserializeUser(
-  function (id, done) {
-    User.findById(id, function (err, user) {
-      done(err, user);
-    });
-  },
-  function (usuario, done) {
-    new UsuarioModel.usuarios({ usuario: usuario }).fetch().then(
-      function (usuario) {
-        done(null, usuario);
-      }
-    );
-  }
+    function(id, done) {
+        User.findById(id, function(err, user) {
+            done(err, user);
+        });
+    },
+    function(usuario, done) {
+        new UsuarioModel.usuarios({ usuario: usuario }).fetch().then(
+            function(usuario) {
+                done(null, usuario);
+            }
+        );
+    }
 );
 
 // view engine setup
@@ -128,21 +126,21 @@ app.use('/', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

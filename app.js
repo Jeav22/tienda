@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
+var TwitterStrategy = require("passport-twitter").Strategy;
 var session = require("express-session");
 var bcrypt = require("bcrypt-nodejs");
 var UsuarioModel = require("./models/usuarios");
@@ -83,6 +84,43 @@ passport.use(
         }
     )
 );
+
+passport.use(
+    new TwitterStrategy({
+            consumerKey: "ZuCiPKymEqn9J7BUeDCo7Ppcf",
+            consumerSecret: "OQgHokERod30TzVgZkfqTOxnkoICnwrhU7UyWSnVTVKY8TItge",
+            //callbackURL: "http://localhost:3000/users/auth/twitter/callback"
+        },
+        function(token, tokenSecret, profile, done) {
+            console.log(profile);
+            process.nextTick(
+                function() {
+                    User.findOne({ 'twitter.id': profile.id },
+                        function(err, user) {
+                            if (err)
+                                return done(err);
+                            if (user) {
+                                return done(null, user)
+                            } else {
+                                var newUser = new User();
+                                newUser.twitter.id = profile.id;
+                                newUser.twitter.token = token;
+                                newUser.twitter.name = profile.displayName;
+                                newUser.twitter.email = profile.id;
+                                newUser.save(
+                                    function(err) {
+                                        if (err)
+                                            throw err;
+                                        return done(null, newUser);
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+            );
+        }
+    ));
 
 passport.serializeUser(
     function(usuario, done) {

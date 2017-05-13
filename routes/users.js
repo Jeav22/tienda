@@ -71,4 +71,14 @@ router.get('/auth/facebook/callback',
         res.redirect("/bienvenido");
     });
 
+router.get('/auth/twitter',
+    passport.authenticate('twitter')
+);
+
+router.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/bienvenido');
+    });
+
 module.exports = router;

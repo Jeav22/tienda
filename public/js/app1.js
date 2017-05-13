@@ -11,7 +11,7 @@ $(document).ready(function() {
             data = source;
             productos = data.products;
             categorias = data.categories;
-    	    CargarCategorias();
+            CargarCategorias();
             mostrar();
         }
     });
@@ -21,7 +21,7 @@ $(document).ready(function() {
 //---Mostrar Contenido----------------------------------------------
 function mostrar() {
     var p = null;
-    var org="";
+    var org = "";
     p = productos;
     org += '<div class="row">' +
         '<div class="col-md-12">';
@@ -70,10 +70,10 @@ function mostrar() {
 
 function CargarCategorias() {
     var c = null;
-    var cate="";
+    var cate = "";
     c = categorias;
     for (var i = 0; i < c.length; i++) {
-        cate += "<li><a href='#' class="+c[i].categori_id+">" + c[i].name + "</a></li>";
+        cate += "<li><a href='#' class=" + c[i].categori_id + ">" + c[i].name + "</a></li>";
     }
     $(".cat").html(cate);
 }
@@ -120,10 +120,18 @@ $(".mep").click(ordenarMePrecio);
 
 //-----Busqueda------------------------------------------------------------
 function buscar() {
+    var p1 = null;
     $(".tienda").empty();
     var text = document.getElementById("texto").value;
-    console.log("search: " + text);
-
+    var p1 = productos;
+    var aux = 0;
+    for (var i = 0; i < p1.length; i++) {
+        if (p1[i].name.toUpperCase().includes(text.toUpperCase())) {
+            p1[aux++] = p1[i];
+        }
+    }
+    p1.splice(aux, p1.length - aux);
+    mostrar();
 }
 
 $(".busc").click(buscar);
@@ -152,7 +160,7 @@ function prodctoDisponible() {
     $(".mtr").show();
     $(".ptrue").show();
     $(".pfalse").hide();
-console.log("disponibles");
+    console.log("disponibles");
 }
 
 $(".pd").click(prodctoDisponible);
@@ -174,6 +182,5 @@ function menorD() {
     $(".pfalse").show();
     $(".med").hide();
 }
-
 
 $(".mad").click(menorD);

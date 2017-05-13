@@ -12,17 +12,15 @@ $(document).ready(function() {
             productos = data.products;
             categorias = data.categories;
             CargarCategorias();
-            mostrar();
+            mostrar(productos);
         }
     });
 });
 
 
 //---Mostrar Contenido----------------------------------------------
-function mostrar() {
-    var p = null;
+function mostrar(p) {
     var org = "";
-    p = productos;
     org += '<div class="row">' +
         '<div class="col-md-12">';
     for (var i = 0; i < p.length; i++) {
@@ -62,7 +60,8 @@ function mostrar() {
             '</div>';
     }
     org += '</div>' +
-        '</div>';
+        '</div>' +
+        '<script src="../js/carrito.js"></script>';
     $(".tienda").html(org);
 }
 
@@ -97,7 +96,7 @@ var sort_by = function(field, reverse, primer) {
 function ordenarNombre() {
     $(".tienda").empty();
     productos.sort(sort_by('name', false, function(a) { return a.toUpperCase() }));
-    mostrar();
+    mostrar(productos);
 }
 
 $(".ord").click(ordenarNombre);
@@ -106,7 +105,7 @@ $(".ord").click(ordenarNombre);
 function ordenarMaPrecio() {
     $(".tienda").empty();
     productos.sort(sort_by('price', true, parseInt));
-    mostrar();
+    mostrar(productos);
 }
 $(".map").click(ordenarMaPrecio);
 
@@ -114,24 +113,24 @@ $(".map").click(ordenarMaPrecio);
 function ordenarMePrecio() {
     $(".tienda").empty();
     productos.sort(sort_by('price', false, parseInt));
-    mostrar();
+    mostrar(productos);
 }
 $(".mep").click(ordenarMePrecio);
 
 //-----Busqueda------------------------------------------------------------
 function buscar() {
     var p1 = null;
-    $(".tienda").empty();
     var text = document.getElementById("texto").value;
-    var p1 = productos;
+    var p1 = productos.splice();
     var aux = 0;
-    for (var i = 0; i < p1.length; i++) {
-        if (p1[i].name.toUpperCase().includes(text.toUpperCase())) {
-            p1[aux++] = p1[i];
+    for (var i = 0; i < productos.length; i++) {
+        if (productos[i].name.toUpperCase().includes(text.toUpperCase())) {
+            p1[aux++] = productos[i];
         }
     }
     p1.splice(aux, p1.length - aux);
-    mostrar();
+    console.log(p1.length);
+    mostrar(p1);
 }
 
 $(".busc").click(buscar);

@@ -5,13 +5,13 @@ $(document).ready(function() {
         type: 'GET',
         url: 'dataParcial.json',
         dataType: 'json',
-        async: true,	
+        async: true,
         success: function(source) {
-            
-	    $(".1").click(bebdidas);
-	    $(".2").click(lunch);
-	    $(".3").click(food);
-	    $(".4").click(sea);
+
+            $(".1").click(bebdidas);
+            $(".2").click(lunch);
+            $(".3").click(food);
+            $(".4").click(sea);
         }
     });
 });

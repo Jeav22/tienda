@@ -1,6 +1,7 @@
 //--Cargar Json-----------------------------------------------------
 var productos;
 var categorias;
+var user = document.getElementById("usuario");
 $(document).ready(function() {
     $.ajax({
         type: 'GET',

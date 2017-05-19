@@ -50,7 +50,7 @@ passport.use(
     new FacebookStrategy({
             clientID: '1717389265227129',
             clientSecret: '7d237b229a28c76b80d32326048273dc',
-            callbackURL: "https://tiendawebcars.herokuapp.com/users/auth/facebook/callback",
+            callbackURL: "https://tiendaa.herokuapp.com/users/auth/facebook/callback",
             profileFields: ["emails", "displayName"]
         },
         function(token, refreshToken, profile, done) {

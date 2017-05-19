@@ -65,10 +65,10 @@ passport.use(
                                 return done(null, user)
                             } else {
                                 var newUser = new User();
-                                newUser.facebook.id = profile.id;
-                                newUser.facebook.token = token;
-                                newUser.facebook.name = profile.displayName;
-                                newUser.facebook.email = profile.id;
+                                newUser.a.id = profile.id;
+                                newUser.a.token = token;
+                                newUser.a.name = profile.displayName;
+                                newUser.a.email = profile.id;
                                 newUser.save(
                                     function(err) {
                                         if (err)
@@ -103,10 +103,10 @@ passport.use(
                                 return done(null, user)
                             } else {
                                 var newUser = new User();
-                                newUser.twitter.id = profile.id;
-                                newUser.twitter.token = token;
-                                newUser.twitter.name = profile.displayName;
-                                newUser.twitter.email = profile.id;
+                                 newUser.a.id = profile.id;
+                                newUser.a.token = token;
+                                newUser.a.name = profile.displayName;
+                                newUser.a.email = profile.id;
                                 newUser.save(
                                     function(err) {
                                         if (err)

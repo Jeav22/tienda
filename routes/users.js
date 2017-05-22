@@ -11,20 +11,24 @@ var urlencodedParse = bodyParse.urlencoded({ extended: false });
 
 router.post("/iniciarSesion", urlencodedParse, function(req, res, next) {
     passport.authenticate('local', {
-            sucessRedirect: "/bienvenido",
+            sucessRedirect: "../bienvenido",
             failureRedirect: "/login"
         },
         function(err, usuario, info) {
+            console.log(usuario);
             if (err) {
                 return res.render("login", { title: "Express", error: err.message })
             }
             if (!usuario) {
-                return res.render("login", { title: "Express", error: info.message })
+                return res.render("login", { title: "Express", error: info.message + " Error de credenciales" })
             }
             return req.login(usuario, function(err) {
+                console.log("whaat")
                 if (err) {
+                    console.log("error1")
                     return res.render("login", { title: "Express", error: err.message })
                 } else {
+                    console.log("ooooooooooooooookkkkkkkkkkkkkkk " + usuario.name + usuario.id);
                     res.render('bienvenido', { title: 'Bienvenido', usuario: usuario });
                 }
             });
@@ -42,7 +46,7 @@ router.post("/signup", function(req, res) {
             } else {
                 usuario.clave = bcrypt.hashSync(usuario.clave);
                 var modeloUsuario = new UsuarioModel.usuarios({
-                    nombre: usuario.nombre,
+                    name: usuario.name,
                     apellido: usuario.apellido,
                     correo: usuario.correo,
                     clave: usuario.clave

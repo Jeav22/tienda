@@ -1,4 +1,8 @@
 <% include partials/header %>
-   <h3>Bienvenido <var id="usuario"> <%= usuario.a.name %> </var></h3>
+   <h3>Bienvenido <var id="usuario"> <% if(usuario.a != undefined ){ %>
+                             <%= usuario.a.name %> 
+                             <% }else{ %>
+                             <%= usuario.name %>
+                             <% } %> </var></h3>
     <div class="tienda"> </div>
 <% include partials/footer %>

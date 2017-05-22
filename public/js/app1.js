@@ -5,7 +5,7 @@ var user = document.getElementById("usuario");
 $(document).ready(function() {
     $.ajax({
         type: 'GET',
-        url: 'dataParcial.json',
+        url: '../dataParcial.json',
         dataType: 'json',
         async: false,
         success: function(source) {
@@ -189,13 +189,13 @@ $(".mad").click(menorD);
 function sesionDropdown() {
     var org = "";
     if (user != null) {
-        document.getElementById("inicio").href="/bienvenido"
-        org = "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>"+ user.innerText +" <span class='caret'></span></a>"+
+        document.getElementById("inicio").href = "/bienvenido"
+        org = "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>" + user.innerText + " <span class='caret'></span></a>" +
             "<ul class='dropdown-menu'>" +
             "<li><a href='cerrarSesion'>Cerrar Sesión</a></li>" +
             "</ul>";
-    }else{
-        org = "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Sesion <span class='caret'></span></a>"+
+    } else {
+        org = "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Sesion <span class='caret'></span></a>" +
             "<ul class='dropdown-menu'>" +
             "<li><a href='signup'>Registrarse</a></li>" +
             "<li><a href='login'>Iniciar Sesion</a></li>" +

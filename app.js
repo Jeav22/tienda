@@ -50,6 +50,7 @@ passport.use(
     new FacebookStrategy({
             clientID: '1717389265227129',
             clientSecret: '7d237b229a28c76b80d32326048273dc',
+            //callbackURL: "http://localhost:3000/users/auth/facebook/callback",
             callbackURL: "https://tiendaa.herokuapp.com/users/auth/facebook/callback",
             profileFields: ["emails", "displayName"]
         },
@@ -57,7 +58,7 @@ passport.use(
             console.log(profile);
             process.nextTick(
                 function() {
-                    User.findOne({ 'facebook.id': profile.id },
+                    User.findOne({ 'a.id': profile.id },
                         function(err, user) {
                             if (err)
                                 return done(err);
@@ -89,13 +90,12 @@ passport.use(
     new TwitterStrategy({
             consumerKey: "ZuCiPKymEqn9J7BUeDCo7Ppcf",
             consumerSecret: "OQgHokERod30TzVgZkfqTOxnkoICnwrhU7UyWSnVTVKY8TItge",
-            //callbackURL: "http://localhost:3000/users/auth/twitter/callback"
         },
         function(token, tokenSecret, profile, done) {
             console.log(profile);
             process.nextTick(
                 function() {
-                    User.findOne({ 'twitter.id': profile.id },
+                    User.findOne({ 'a.id': profile.id },
                         function(err, user) {
                             if (err)
                                 return done(err);
@@ -103,7 +103,7 @@ passport.use(
                                 return done(null, user)
                             } else {
                                 var newUser = new User();
-                                 newUser.a.id = profile.id;
+                                newUser.a.id = profile.id;
                                 newUser.a.token = token;
                                 newUser.a.name = profile.displayName;
                                 newUser.a.email = profile.id;

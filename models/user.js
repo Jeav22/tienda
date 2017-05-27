@@ -17,7 +17,6 @@ var userSchema = mongoose.Schema({
     administrador: {
         name: String,
         password: String
-<<<<<<< HEAD
     },
     categoria: {
         id: String,
@@ -31,8 +30,6 @@ var userSchema = mongoose.Schema({
         categories: String,
         img: String,
         description: String
-=======
->>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
     }
 
 });

@@ -6,6 +6,18 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
+router.get('/administrador', function(req, res, next) {
+    if (!req.isAuthenticated()) {
+        res.render('administrador', { title: 'Express' });
+    } else {
+        var usuario = req.user;
+        if (usuario != undefined) {
+            usuario = req.user.toJSON();
+        }
+        res.render('administrador', { tilte: "Express", usuario: usuario });
+    }
+});
+
 router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Express' });
 });

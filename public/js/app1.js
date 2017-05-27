@@ -1,6 +1,7 @@
 //--Cargar Json-----------------------------------------------------
 var productos;
 var categorias;
+var json;
 var user = document.getElementById("usuario");
 $(document).ready(function() {
     $.ajax({
@@ -10,11 +11,13 @@ $(document).ready(function() {
         async: false,
         success: function(source) {
             data = source;
+            json = data;
             productos = data.products;
             categorias = data.categories;
             sesionDropdown();
             CargarCategorias();
             mostrar(productos);
+            modificar(productos);
         }
     });
 });
@@ -202,4 +205,113 @@ function sesionDropdown() {
             "</ul>";
     }
     $(".sesion").html(org);
+}
+
+//----------Modificar producto---------------------------------------------------
+
+function modificar(pr) {
+
+    var linea = '';
+
+    linea += '<div class="container">' +
+        '<div class="row">' +
+        '<div class="col-sm-3">' +
+        '<a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">Productos</a>' +
+        '<ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">';
+    for (var i = 0; i < pr.length; i++) {
+        linea += '<li><a href="#vtab' + (i + 1) + '" data-toggle="tab">' + pr[i].name + '</a></li>';
+    }
+    linea += '</ul>' +
+        '<h1></h1>' +
+        '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-plus"></span> Agregar Producto</button>' +
+        '<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">' +
+        '<div class="modal-dialog" role="document">' +
+        '<div class="modal-content">' +
+        '<div class="modal-header">' +
+        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+        '<h4 class="modal-title" id="exampleModalLabel">Nuevo Producto</h4>' +
+        '</div>' +
+        '<div class="modal-body">' +
+        '<form method="POST" action="/users/crearProducto">' +
+        '<div class="form-group">' +
+        '<label for="recipient-name" class="control-label">Nombre:</label>' +
+        '<input type="text" class="form-control" id="recipient-name">' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label for="message-text" class="control-label">Descripción:</label>' +
+        '<textarea type="text" class="form-control" id="message-text"></textarea>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label for="message-text" class="control-label">Precio:</label>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon">$</span>' +
+        '<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)">' +
+        '</div>' +
+        '</div>' +
+        '<label for="message-text" class="control-label">Categorias:</label>' +
+        '<br>';
+    c = null;
+    c = categorias;
+    for (var i = 0; i < c.length; i++) {
+        linea += '<div class="checkbox-inline">' +
+            '<label>' +
+            '<input type="checkbox" value="">' +
+            c[i].categori_id + ': ' + c[i].name +
+            '</label>' +
+            '</div>';
+    }
+    linea += '</ul>' +
+        '<br>' +
+        '<div class="form-group">' +
+        '<label for="pwd">Cantidad:</label>' +
+        '<input type="number" class="form-control" id="pwd">' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<input class = "filestyle" name="uploadedfile" type="file" />' +
+        '</div>' +
+        '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
+        '<button type="submit" class="btn btn-primary">Agregar Producto</button>' +
+        '</form>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<h1></h1>' +
+        '</div>' +
+        '<div class="col-sm-9">' +
+        '<div class="tab-content">';
+    for (var i = 0; i < pr.length; i++) {
+        linea += '<div role="tabpanel" class="tab-pane " id="vtab' + (i + 1) + '">' +
+            '<img src=' + pr[i].img + '/>' +
+            '<h1>' + pr[i].name + '</h1>' +
+            '<h3>' + pr[i].description + '</h3>' +
+            '<h3> Precio: $' + pr[i].price + '</h3>';
+        var disponible = "";
+        if (pr[i].available == true) {
+            disponible = "Si";
+        } else {
+            disponible = "No";
+        }
+        var mejorVendido = "";
+        if (pr[i].best_seller == true) {
+            mejorVendido = "Si";
+        } else {
+            mejorVendido = "No";
+        }
+        linea += '<h4>Disponibilidad: ' + disponible + '</h4>' +
+            '<h4>Mejor vendido: ' + mejorVendido + '</h4>' +
+            '<h4>Categorias: ' + pr[i].categories + '</h4>' +
+            '<a href="#" class="btn btn-info btn-lg btn-danger">' +
+            '<span class="glyphicon glyphicon-trash"></span> Eliminar Producto' +
+            '</a>' +
+            '</div>';
+    }
+    linea += '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+
+    $(".modificar").html(linea);
 }

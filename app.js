@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 //Librerias para passport
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
+var AdministradorStrategy = require("passport-local").Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
 var TwitterStrategy = require("passport-twitter").Strategy;
 var session = require("express-session");
@@ -43,6 +44,20 @@ passport.use(new LocalStrategy(
                 }
             }
         );
+    }
+));
+
+passport.use(new AdministradorStrategy(
+    function(correo, clave, done) {
+        if (correo == null || clave == null) {
+            return done(null, false, { mensaje: "Faltan credenciales." });
+        } else {
+            if (correo != 'jeav22' || clave != '1234') {
+                return done(null, false, { mensaje: "Credenciales invalidas." });
+            } else {
+                return done(null, correo);
+            }
+        }
     }
 ));
 

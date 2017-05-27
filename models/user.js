@@ -13,7 +13,25 @@ var userSchema = mongoose.Schema({
         token: String,
         email: String,
         name: String
+    },
+    administrador: {
+        name: String,
+        password: String
+    },
+    categoria: {
+        id: String,
+        name: String
+    },
+    producto: {
+        id: String,
+        name: String,
+        available: String,
+        best_seller: String,
+        categories: String,
+        img: String,
+        description: String
     }
+
 });
 
 userSchema.methods.validPassword = function(password) {

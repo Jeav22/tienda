@@ -61,6 +61,7 @@ router.post("/signup", function(req, res) {
     );
 });
 
+<<<<<<< HEAD
 router.post("/crearProducto", function(req, res, next) {
     var producto = req.body;
     var nuevoCategoria = new modelo();
@@ -75,6 +76,8 @@ router.post("/crearProducto", function(req, res, next) {
     //res.redirect('/administrador');
 });
 
+=======
+>>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
 
 router.post("/iniciarSesionAdministrador", urlencodedParse, function(req, res, next) {
     passport.authenticate('local', {
@@ -82,9 +85,15 @@ router.post("/iniciarSesionAdministrador", urlencodedParse, function(req, res, n
             failureRedirect: "/login"
         },
         function(err, usuario, info) {
+<<<<<<< HEAD
             console.log(usuario + info);
             if (err) {
                 return res.render("iniciarAdministrador", { title: "Express", error: err.message + 'aqui' })
+=======
+            console.log(usuario+info);
+            if (err) {
+                return res.render("iniciarAdministrador", { title: "Express", error: err.message +'aqui'})
+>>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
             }
             if (!usuario) {
                 return res.render("iniciarAdministrador", { title: "Express", error: info.message + " Error de credenciales" })

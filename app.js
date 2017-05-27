@@ -28,9 +28,9 @@ var app = express();
 
 //Configuracion passport
 passport.use(new LocalStrategy(
-    function(correo, clave, done) {
+    function (correo, clave, done) {
         new UsuarioModel.usuarios({ correo: correo }).fetch().then(
-            function(info) {
+            function (info) {
                 var usuarioInfo = info;
                 if (usuarioInfo == null) {
                     return done(null, false, { mensaje: "Email no valido." });
@@ -48,11 +48,19 @@ passport.use(new LocalStrategy(
 ));
 
 passport.use(new AdministradorStrategy(
+<<<<<<< HEAD
     function(correo, clave, done) {
         if (correo == null || clave == null) {
             return done(null, false, { mensaje: "Faltan credenciales." });
         } else {
             if (correo != 'jeav22' || clave != '1234') {
+=======
+    function (correo, clave, done) {
+        if (correo == null || clave == null) {
+            return done(null, false, { mensaje: "Faltan credenciales." });
+        } else {
+            if (correo !='jeav22' || clave != '1234') {
+>>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
                 return done(null, false, { mensaje: "Credenciales invalidas." });
             } else {
                 return done(null, correo);
@@ -63,18 +71,18 @@ passport.use(new AdministradorStrategy(
 
 passport.use(
     new FacebookStrategy({
-            clientID: '1717389265227129',
-            clientSecret: '7d237b229a28c76b80d32326048273dc',
-            //callbackURL: "http://localhost:3000/users/auth/facebook/callback",
-            callbackURL: "https://tiendaa.herokuapp.com/users/auth/facebook/callback",
-            profileFields: ["emails", "displayName"]
-        },
-        function(token, refreshToken, profile, done) {
+        clientID: '1717389265227129',
+        clientSecret: '7d237b229a28c76b80d32326048273dc',
+        //callbackURL: "http://localhost:3000/users/auth/facebook/callback",
+        callbackURL: "https://tiendaa.herokuapp.com/users/auth/facebook/callback",
+        profileFields: ["emails", "displayName"]
+    },
+        function (token, refreshToken, profile, done) {
             console.log(profile);
             process.nextTick(
-                function() {
+                function () {
                     User.findOne({ 'a.id': profile.id },
-                        function(err, user) {
+                        function (err, user) {
                             if (err)
                                 return done(err);
                             if (user) {
@@ -86,7 +94,7 @@ passport.use(
                                 newUser.a.name = profile.displayName;
                                 newUser.a.email = profile.id;
                                 newUser.save(
-                                    function(err) {
+                                    function (err) {
                                         if (err)
                                             throw err;
                                         return done(null, newUser);
@@ -103,15 +111,15 @@ passport.use(
 
 passport.use(
     new TwitterStrategy({
-            consumerKey: "ZuCiPKymEqn9J7BUeDCo7Ppcf",
-            consumerSecret: "OQgHokERod30TzVgZkfqTOxnkoICnwrhU7UyWSnVTVKY8TItge",
-        },
-        function(token, tokenSecret, profile, done) {
+        consumerKey: "ZuCiPKymEqn9J7BUeDCo7Ppcf",
+        consumerSecret: "OQgHokERod30TzVgZkfqTOxnkoICnwrhU7UyWSnVTVKY8TItge",
+    },
+        function (token, tokenSecret, profile, done) {
             console.log(profile);
             process.nextTick(
-                function() {
+                function () {
                     User.findOne({ 'a.id': profile.id },
-                        function(err, user) {
+                        function (err, user) {
                             if (err)
                                 return done(err);
                             if (user) {
@@ -123,7 +131,7 @@ passport.use(
                                 newUser.a.name = profile.displayName;
                                 newUser.a.email = profile.id;
                                 newUser.save(
-                                    function(err) {
+                                    function (err) {
                                         if (err)
                                             throw err;
                                         return done(null, newUser);
@@ -138,20 +146,20 @@ passport.use(
     ));
 
 passport.serializeUser(
-    function(usuario, done) {
+    function (usuario, done) {
         done(null, usuario);
     }
 );
 
 passport.deserializeUser(
-    function(id, done) {
-        User.findById(id, function(err, user) {
+    function (id, done) {
+        User.findById(id, function (err, user) {
             done(err, user);
         });
     },
-    function(usuario, done) {
+    function (usuario, done) {
         new UsuarioModel.usuarios({ usuario: usuario }).fetch().then(
-            function(usuario) {
+            function (usuario) {
                 done(null, usuario);
             }
         );
@@ -179,14 +187,14 @@ app.use('/', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

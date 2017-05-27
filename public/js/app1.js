@@ -3,13 +3,13 @@ var productos;
 var categorias;
 var json;
 var user = document.getElementById("usuario");
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         type: 'GET',
         url: '../dataParcial.json',
         dataType: 'json',
         async: false,
-        success: function(source) {
+        success: function (source) {
             data = source;
             json = data;
             productos = data.products;
@@ -33,7 +33,7 @@ function mostrar(p) {
         if (p[i].price < 30.000) {
             org += " mtr ";
         }
-        if (10.000 > p[i].price) {} else {
+        if (10.000 > p[i].price) { } else {
             org += " med ";
         }
         for (var j = 0; j < p[i].categories.length; j++) {
@@ -84,14 +84,14 @@ function CargarCategorias() {
 
 //-----Sort----------------------------------------------------------------
 
-var sort_by = function(field, reverse, primer) {
+var sort_by = function (field, reverse, primer) {
     var key = primer ?
-        function(x) { return primer(x[field]) } :
-        function(x) { return x[field] };
+        function (x) { return primer(x[field]) } :
+        function (x) { return x[field] };
 
     reverse = !reverse ? 1 : -1;
 
-    return function(a, b) {
+    return function (a, b) {
         return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
     }
 }
@@ -100,7 +100,7 @@ var sort_by = function(field, reverse, primer) {
 //-----Ordenar por nombre--------------------------------------------------
 function ordenarNombre() {
     $(".tienda").empty();
-    productos.sort(sort_by('name', false, function(a) { return a.toUpperCase() }));
+    productos.sort(sort_by('name', false, function (a) { return a.toUpperCase() }));
     mostrar(productos);
 }
 
@@ -232,7 +232,11 @@ function modificar(pr) {
         '<h4 class="modal-title" id="exampleModalLabel">Nuevo Producto</h4>' +
         '</div>' +
         '<div class="modal-body">' +
+<<<<<<< HEAD
         '<form method="POST" action="/users/crearProducto">' +
+=======
+        '<form>' +
+>>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
         '<div class="form-group">' +
         '<label for="recipient-name" class="control-label">Nombre:</label>' +
         '<input type="text" class="form-control" id="recipient-name">' +
@@ -269,11 +273,19 @@ function modificar(pr) {
         '<div class="form-group">' +
         '<input class = "filestyle" name="uploadedfile" type="file" />' +
         '</div>' +
+<<<<<<< HEAD
         '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
         '<button type="submit" class="btn btn-primary">Agregar Producto</button>' +
         '</form>' +
         '</div>' +
         '<div class="modal-footer">' +
+=======
+        '</form>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
+        '<button type="button" class="btn btn-primary">Agregar Producto</button>' +
+>>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
         '</div>' +
         '</div>' +
         '</div>' +
@@ -314,4 +326,32 @@ function modificar(pr) {
         '</div>';
 
     $(".modificar").html(linea);
+<<<<<<< HEAD
+=======
+}
+
+//----------Modificar json---------------------------------------------------
+
+function enviarProducto() {
+    fs = require('fs');
+    var m = JSON.parse(fs.readFileSync('dataParcial.json').toString());
+
+    console.log(m.products);
+    console.log(m.products+'{'+
+            '"id": 1,'+
+            '"name": "Lorem",'+
+           '"price": "60.000",'+
+            '"available": true,'+
+            '"best_seller": true,'+
+            '"categories": ['+
+                '1,'+
+                '4'+
+            '],'+
+            '"img": "http://lorempixel.com/200/100/food/",'+
+            '"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu."}');
+    m[1].forEach(function (p) {
+        p.name = p.name.toLowerCase() + ".png";
+    });
+    fs.writeFile('dataParcial.json', JSON.stringify(m));
+>>>>>>> c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
 }

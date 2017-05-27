@@ -313,34 +313,5 @@ function modificar(pr) {
         '</div>' +
         '</div>';
 
-    $(".modificar").html(linea); <<
-    << << < HEAD
-        ===
-        === =
-}
-
-//----------Modificar json---------------------------------------------------
-
-function enviarProducto() {
-    fs = require('fs');
-    var m = JSON.parse(fs.readFileSync('dataParcial.json').toString());
-
-    console.log(m.products);
-    console.log(m.products + '{' +
-        '"id": 1,' +
-        '"name": "Lorem",' +
-        '"price": "60.000",' +
-        '"available": true,' +
-        '"best_seller": true,' +
-        '"categories": [' +
-        '1,' +
-        '4' +
-        '],' +
-        '"img": "http://lorempixel.com/200/100/food/",' +
-        '"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu."}');
-    m[1].forEach(function(p) {
-        p.name = p.name.toLowerCase() + ".png";
-    });
-    fs.writeFile('dataParcial.json', JSON.stringify(m)); >>>
-    >>> > c82edb9a821c1da33f630e75d3f30f60d7a1e4a9
+    $(".modificar").html(linea);
 }

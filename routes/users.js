@@ -63,9 +63,23 @@ router.post("/signup", function(req, res) {
 
 router.post("/crearProducto", function(req, res, next) {
     var producto = req.body;
+    var nuevoProducto = new modelo();
+    nuevoProducto.categoria.id = "5";
+    nuevoProducto.categoria.name = "OTRO";
+    nuevoProducto.save(
+        function(err) {
+            if (err) response.json(error);
+            res.redirect('/administrador');
+        }
+    );
+    //res.redirect('/administrador');
+});
+
+router.post("/crearCategoria", function(req, res, next) {
+    var categoria = req.body;
     var nuevoCategoria = new modelo();
-    nuevoCategoria.categoria.id = "5";
-    nuevoCategoria.categoria.name = "OTRO";
+    nuevoCategoria.categoria.id = categoria.id;
+    nuevoCategoria.categoria.name = categoria.name;
     nuevoCategoria.save(
         function(err) {
             if (err) response.json(error);

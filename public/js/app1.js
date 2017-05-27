@@ -235,17 +235,17 @@ function modificar(pr) {
         '<form method="POST" action="/users/crearProducto">' +
         '<div class="form-group">' +
         '<label for="recipient-name" class="control-label">Nombre:</label>' +
-        '<input type="text" class="form-control" id="recipient-name">' +
+        '<input name="name" type="text" class="form-control" id="recipient-name">' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="message-text" class="control-label">Descripción:</label>' +
-        '<textarea type="text" class="form-control" id="message-text"></textarea>' +
+        '<textarea name="description" type="text" class="form-control" id="message-text"></textarea>' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="message-text" class="control-label">Precio:</label>' +
         '<div class="input-group">' +
         '<span class="input-group-addon">$</span>' +
-        '<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)">' +
+        '<input name="price" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">' +
         '</div>' +
         '</div>' +
         '<label for="message-text" class="control-label">Categorias:</label>' +
@@ -266,17 +266,16 @@ function modificar(pr) {
         '<label for="pwd">Cantidad:</label>' +
         '<input type="number" class="form-control" id="pwd">' +
         '</div>' +
-
         '<div class="input-group">' +
         '<div class="checkbox-inline">' +
-        '<label><input type="checkbox" value="">Mejor vendido</label>' +
+        '<label><input name="best_seller" type="checkbox" value="">Mejor vendido</label>' +
         '</div>'+
         '<div class="checkbox-inline">' +
-        '<label><input type="checkbox" value="">Disponible</label>' +
+        '<label><input name="available" type="checkbox" value="">Disponible</label>' +
         '</div>'+
         '</div>' +
         '<div class="form-group">' +
-        '<input class = "filestyle" name="uploadedfile" type="file" />' +
+        '<input name="img" class = "filestyle" name="uploadedfile" type="file" />' +
         '</div>' +
         '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
         '<button type="submit" class="btn btn-primary">Agregar Producto</button>' +
@@ -288,7 +287,6 @@ function modificar(pr) {
         '</div>' +
         '</div>' +
         '<h1></h1>' +
-
         '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Agregar Categoria</button>'+
         '<div class="modal fade" id="myModal" role="dialog">'+
         '<div class="modal-dialog">'+
@@ -310,11 +308,11 @@ function modificar(pr) {
         '<div class="form-group">'+
         '<h3></h3>'+
         '<label for="email">ID:</label>'+
-        '<input type="text" class="form-control" id="di_categoria" placeholder="Ingrese el ID de la categoria" name="email">'+
+        '<input name="categori_id" type="text" class="form-control" id="di_categoria" placeholder="Ingrese el ID de la categoria" name="email">'+
         '</div>'+
         '<div class="form-group">'+
         '<label for="pwd">Nombre:</label>'+
-        '<input type="text" class="form-control" id="pwd" placeholder="Ingrese el nombre de la categoria" name="pwd">'+
+        '<input name="name" type="text" class="form-control" id="pwd" placeholder="Ingrese el nombre de la categoria" name="pwd">'+
         '</div>'+
         '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
         '<button type="submit" class="btn btn-primary">Agregar Categoria</button>' +

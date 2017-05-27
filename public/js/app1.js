@@ -279,7 +279,46 @@ function modificar(pr) {
         '</div>' +
         '</div>' +
         '<h1></h1>' +
+
+        '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Agregar Categoria</button>'+
+        '<div class="modal fade" id="myModal" role="dialog">'+
+        '<div class="modal-dialog">'+
+        '<div class="modal-content">'+
+        '<div class="modal-header">'+
+        '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+        '<h4 class="modal-title">Modal Header</h4>'+
+        '</div>'+
+        '<div class="modal-body">'+
+        '<label for="message-text" class="control-label">Categorias existentes :</label>'+
+        '<br>';
+        for (var i = 0; i < c.length; i++) {
+        linea += '<label>' +
+            c[i].categori_id + ': ' + c[i].name +
+            '</label>'+
+            '<br>';
+    }
+    linea += '<form action="/action_page.php">'+
+        '<div class="form-group">'+
+        '<h3></h3>'+
+        '<label for="email">ID:</label>'+
+        '<input type="text" class="form-control" id="di_categoria" placeholder="Ingrese el ID de la categoria" name="email">'+
+        '</div>'+
+        '<div class="form-group">'+
+        '<label for="pwd">Nombre:</label>'+
+        '<input type="text" class="form-control" id="pwd" placeholder="Ingrese el nombre de la categoria" name="pwd">'+
+        '</div>'+
+        '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
+        '<button type="submit" class="btn btn-primary">Agregar Categoria</button>' +
+        '</form>'+
+        '</div>'+
+        '<div class="modal-footer">'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
         '</div>' +
+        '<h1></h1>' +
         '<div class="col-sm-9">' +
         '<div class="tab-content">';
     for (var i = 0; i < pr.length; i++) {

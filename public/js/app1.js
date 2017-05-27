@@ -268,11 +268,11 @@ function modificar(pr) {
         '</div>' +
         '<div class="input-group">' +
         '<div class="checkbox-inline">' +
-        '<label><input name="best_seller" type="checkbox" value="">Mejor vendido</label>' +
-        '</div>'+
+        '<label><input name="best_seller" type="checkbox" value="true">Mejor vendido</label>' +
+        '</div>' +
         '<div class="checkbox-inline">' +
-        '<label><input name="available" type="checkbox" value="">Disponible</label>' +
-        '</div>'+
+        '<label><input name="available" type="checkbox" value="true">Disponible</label>' +
+        '</div>' +
         '</div>' +
         '<div class="form-group">' +
         '<input name="img" class = "filestyle" name="uploadedfile" type="file" />' +
@@ -287,43 +287,43 @@ function modificar(pr) {
         '</div>' +
         '</div>' +
         '<h1></h1>' +
-        '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Agregar Categoria</button>'+
-        '<div class="modal fade" id="myModal" role="dialog">'+
-        '<div class="modal-dialog">'+
-        '<div class="modal-content">'+
-        '<div class="modal-header">'+
-        '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
-        '<h4 class="modal-title">Modal Header</h4>'+
-        '</div>'+
-        '<div class="modal-body">'+
-        '<label for="message-text" class="control-label">Categorias existentes :</label>'+
+        '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Agregar Categoria</button>' +
+        '<div class="modal fade" id="myModal" role="dialog">' +
+        '<div class="modal-dialog">' +
+        '<div class="modal-content">' +
+        '<div class="modal-header">' +
+        '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+        '<h4 class="modal-title">Modal Header</h4>' +
+        '</div>' +
+        '<div class="modal-body">' +
+        '<label for="message-text" class="control-label">Categorias existentes :</label>' +
         '<br>';
-        for (var i = 0; i < c.length; i++) {
+    for (var i = 0; i < c.length; i++) {
         linea += '<label>' +
             c[i].categori_id + ': ' + c[i].name +
-            '</label>'+
+            '</label>' +
             '<br>';
     }
-    linea += '<form action="/action_page.php">'+
-        '<div class="form-group">'+
-        '<h3></h3>'+
-        '<label for="email">ID:</label>'+
-        '<input name="categori_id" type="text" class="form-control" id="di_categoria" placeholder="Ingrese el ID de la categoria" name="email">'+
-        '</div>'+
-        '<div class="form-group">'+
-        '<label for="pwd">Nombre:</label>'+
-        '<input name="name" type="text" class="form-control" id="pwd" placeholder="Ingrese el nombre de la categoria" name="pwd">'+
-        '</div>'+
+    linea += '<form action="/users/crearCategoria" method="POST">' +
+        '<div class="form-group">' +
+        '<h3></h3>' +
+        '<label for="email">ID:</label>' +
+        '<input name="categori_id" type="text" class="form-control" id="di_categoria" placeholder="Ingrese el ID de la categoria" name="email">' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label for="pwd">Nombre:</label>' +
+        '<input name="name" type="text" class="form-control" id="pwd" placeholder="Ingrese el nombre de la categoria" name="pwd">' +
+        '</div>' +
         '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
         '<button type="submit" class="btn btn-primary">Agregar Categoria</button>' +
-        '</form>'+
-        '</div>'+
-        '<div class="modal-footer">'+
-        '</div>'+
-        '</div>'+
-        '</div>'+
-        '</div>'+
-        '</div>'+
+        '</form>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
         '</div>' +
         '<h1></h1>' +
         '<div class="col-sm-9">' +

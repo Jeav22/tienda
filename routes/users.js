@@ -64,11 +64,17 @@ router.post("/signup", function(req, res) {
 router.post("/crearProducto", function(req, res, next) {
     var producto = req.body;
     var nuevoProducto = new modelo();
-    nuevoProducto.producto.id = 1;
+    if (producto.available == undefined) {
+        producto.available = false;
+    }
+    if (producto.best_seller == undefined) {
+        producto.best_seller = false;
+    }
+    //nuevoProducto.producto.id = 1;
     nuevoProducto.producto.name = producto.name;
     nuevoProducto.producto.price = producto.price;
-    //nuevoProducto.producto.available = producto.available;
-    //nuevoProducto.producto.best_seller = producto.best_seller;
+    nuevoProducto.producto.available = producto.available;
+    nuevoProducto.producto.best_seller = producto.best_seller;
     //nuevoProducto.producto.categories = producto.categories;
     //nuevoProducto.producto.img = producto.img;
     nuevoProducto.producto.description = producto.description;
@@ -83,7 +89,7 @@ router.post("/crearProducto", function(req, res, next) {
 router.post("/crearCategoria", function(req, res, next) {
     var categoria = req.body;
     var nuevoCategoria = new modelo();
-    nuevoCategoria.categoria.id = categoria.id;
+    nuevoCategoria.categoria.id = categoria.categori_id;
     nuevoCategoria.categoria.name = categoria.name;
     nuevoCategoria.save(
         function(err) {

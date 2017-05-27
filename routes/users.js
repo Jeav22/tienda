@@ -101,7 +101,7 @@ router.post("/crearCategoria", function(req, res, next) {
     );
 });
 
-router.post("/iniciarSesionAdministrador", urlencodedParse, function(req, res, next) {
+router.post("/SesionAdministrador", urlencodedParse, function(req, res, next) {
     passport.authenticate('local', {
             sucessRedirect: "../bienvenido",
             failureRedirect: "/login"
@@ -109,18 +109,18 @@ router.post("/iniciarSesionAdministrador", urlencodedParse, function(req, res, n
         function(err, usuario, info) {
             console.log(usuario + info);
             if (err) {
-                return res.render("iniciarAdministrador", { title: "Express", error: err.message + 'aqui' })
+                return res.render("iniciarAdministrador", { title: "Express", error: 'El usuario no existe' });
             }
             if (!usuario) {
-                return res.render("iniciarAdministrador", { title: "Express", error: info.message + " Error de credenciales" })
+                return res.render("iniciarAdministrador", { title: "Express", error: info.message });
             }
             return req.login(usuario, function(err) {
-                console.log("whaat")
+                console.log("whaat admin")
                 if (err) {
-                    console.log("error1")
-                    return res.render("iniciarAdministrador", { title: "Express", error: err.message })
+                    console.log("error1 admin");
+                    return res.render("iniciarAdministrador", { title: "Express", error: err.message });
                 } else {
-                    console.log("ooooooooooooooookkkkkkkkkkkkkkk " + usuario.name + usuario.password);
+                    console.log("ooooooooooooooookkkkkkkkkkkkkkk admin");
                     res.render('administrador', { title: 'Bienvenido', usuario: usuario });
                 }
             });

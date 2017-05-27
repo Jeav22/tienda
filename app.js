@@ -29,6 +29,23 @@ var app = express();
 //Configuracion passport
 passport.use(new LocalStrategy(
     function(correo, clave, done) {
+        process.nextTick(
+            function() {
+                User.findOne({ 'local.name': correo, 'local.password': clave },
+                    function(err, user) {
+                        if (err)
+                            return done(err);
+                        if (user) {
+                            return done(null, user)
+                        } else {
+                            return done("null");
+                        }
+                    }
+                );
+            }
+        );
+    }
+    /*function(correo, clave, done) {
         new UsuarioModel.usuarios({ correo: correo }).fetch().then(
             function(info) {
                 var usuarioInfo = info;
@@ -44,13 +61,11 @@ passport.use(new LocalStrategy(
                 }
             }
         );
-    }
+    }*/
 ));
 
 passport.use(new AdministradorStrategy(
     function(correo, clave, done) {
-        console.log(correo);
-        console.log(clave);
         process.nextTick(
             function() {
                 User.findOne({ 'administrador.name': correo, 'administrador.password': clave },
@@ -59,6 +74,18 @@ passport.use(new AdministradorStrategy(
                             return done(err);
                         if (user) {
                             return done(null, user)
+                        } else {
+                            var newUser = new User();
+                            newUser.local.name = profile.name;
+                            newUser.local.password = profile.password;
+                            newUser.local.email = profile.email;
+                            newUser.save(
+                                function(err) {
+                                    if (err)
+                                        throw err;
+                                    return done(null, newUser);
+                                }
+                            );
                         }
                     }
                 );

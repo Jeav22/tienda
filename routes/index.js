@@ -9,13 +9,13 @@ router.route('/').get(function(req, res, next) {
         if (err) res.send(500, err.message);
         console.log('GET /clients');
         console.log(producto);
-        res.render('index', { title: 'Express', producto: producto });
+        res.render('index', { title: 'Express', datos: producto });
     });
 });
 
 router.get('/administrador', function(req, res, next) {
     if (!req.isAuthenticated()) {
-        res.render('administrador', { title: 'Express', usuario: usuario });
+        res.render('iniciarAdministrador', { title: 'Express', usuario: usuario });
     } else {
         var usuario = req.user;
         if (usuario != undefined) {

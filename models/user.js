@@ -17,20 +17,6 @@ var userSchema = mongoose.Schema({
     administrador: {
         name: String,
         password: String
-    },
-    categoria: {
-        id: String,
-        name: String
-    },
-    producto: {
-        id: Number,
-        name: String,
-        price: Number,
-        available: Boolean,
-        best_seller: Boolean,
-        categories: { id: String },
-        img: String,
-        description: String
     }
 
 });

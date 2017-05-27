@@ -49,6 +49,23 @@ passport.use(new LocalStrategy(
 
 passport.use(new AdministradorStrategy(
     function(correo, clave, done) {
+        console.log(correo);
+        console.log(clave);
+        process.nextTick(
+            function() {
+                User.findOne({ 'administrador.name': correo, 'administrador.password': clave },
+                    function(err, user) {
+                        if (err)
+                            return done(err);
+                        if (user) {
+                            return done(null, user)
+                        }
+                    }
+                );
+            }
+        );
+    }
+    /*function(correo, clave, done) {
         if (correo == null || clave == null) {
             return done(null, false, { mensaje: "Faltan credenciales." });
         } else {
@@ -58,7 +75,7 @@ passport.use(new AdministradorStrategy(
                 return done(null, correo);
             }
         }
-    }
+    }*/
 ));
 
 passport.use(

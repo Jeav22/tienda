@@ -8,6 +8,8 @@ var session = require("express-session");
 var bcrypt = require("bcrypt-nodejs");
 var UsuarioModel = require("../models/usuarios");
 var modelo = require("../models/user");
+var modeloProductos = require("../models/products");
+var modeloCategorias = require("../models/categories");
 var bodyParse = require("body-parser");
 var urlencodedParse = bodyParse.urlencoded({ extended: false });
 
@@ -63,7 +65,7 @@ router.post("/signup", function(req, res) {
 
 router.post("/crearProducto", function(req, res, next) {
     var producto = req.body;
-    var nuevoProducto = new modelo();
+    var nuevoProducto = new modeloProductos();
     if (producto.available == undefined) {
         producto.available = false;
     }
@@ -71,13 +73,13 @@ router.post("/crearProducto", function(req, res, next) {
         producto.best_seller = false;
     }
     //nuevoProducto.producto.id = 1;
-    nuevoProducto.producto.name = producto.name;
-    nuevoProducto.producto.price = producto.price;
-    nuevoProducto.producto.available = producto.available;
-    nuevoProducto.producto.best_seller = producto.best_seller;
-    //nuevoProducto.producto.categories = producto.categories;
-    //nuevoProducto.producto.img = producto.img;
-    nuevoProducto.producto.description = producto.description;
+    nuevoProducto.name = producto.name;
+    nuevoProducto.price = producto.price;
+    nuevoProducto.available = producto.available;
+    nuevoProducto.best_seller = producto.best_seller;
+    //nuevoProducto.categories = producto.categories;
+    //nuevoProducto.img = producto.img;
+    nuevoProducto.description = producto.description;
     nuevoProducto.save(
         function(err) {
             if (err) response.json(error);
@@ -88,9 +90,9 @@ router.post("/crearProducto", function(req, res, next) {
 
 router.post("/crearCategoria", function(req, res, next) {
     var categoria = req.body;
-    var nuevoCategoria = new modelo();
-    nuevoCategoria.categoria.id = categoria.categori_id;
-    nuevoCategoria.categoria.name = categoria.name;
+    var nuevoCategoria = new modeloCategorias();
+    nuevoCategoria.id = categoria.categori_id;
+    nuevoCategoria.name = categoria.name;
     nuevoCategoria.save(
         function(err) {
             if (err) response.json(error);

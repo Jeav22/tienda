@@ -1,14 +1,21 @@
 var express = require('express');
+var mongoose = require("mongoose");
+var Products = require("../models/products");
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+router.route('/').get(function(req, res, next) {
+    Products.find(function(err, producto) {
+        if (err) res.send(500, err.message);
+        console.log('GET /clients');
+        console.log(producto);
+        res.render('index', { title: 'Express', producto: producto });
+    });
 });
 
 router.get('/administrador', function(req, res, next) {
     if (!req.isAuthenticated()) {
-        res.render('administrador', { title: 'Express' });
+        res.render('administrador', { title: 'Express', usuario: usuario });
     } else {
         var usuario = req.user;
         if (usuario != undefined) {

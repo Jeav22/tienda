@@ -31,7 +31,7 @@ passport.use(new LocalStrategy(
     function(correo, clave, done) {
         process.nextTick(
             function() {
-                User.findOne({ 'local.name': correo, 'local.password': clave },
+                User.findOne({ 'local.email': correo, 'local.password': clave },
                     function(err, user) {
                         if (err)
                             return done(err);
@@ -75,17 +75,7 @@ passport.use(new AdministradorStrategy(
                         if (user) {
                             return done(null, user)
                         } else {
-                            var newUser = new User();
-                            newUser.local.name = profile.name;
-                            newUser.local.password = profile.password;
-                            newUser.local.email = profile.email;
-                            newUser.save(
-                                function(err) {
-                                    if (err)
-                                        throw err;
-                                    return done(null, newUser);
-                                }
-                            );
+                            return done("null");
                         }
                     }
                 );

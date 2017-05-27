@@ -42,25 +42,48 @@ router.post("/iniciarSesion", urlencodedParse, function(req, res, next) {
 
 router.post("/signup", function(req, res) {
     var usuario = req.body;
-    var usuarioPromise = new UsuarioModel.usuarios({ correo: usuario.correo }).fetch();
+    usuario.password = bcrypt.hashSync(usuario.password);
+
+    modelo.findOne({ 'local.email': usuario.email },
+        function(err, user) {
+            if (err)
+                res.render("login", { tittle: "Registrar usuario", error: err.message });
+            if (user) {
+                res.render("login", { tittle: "Registrar usuario", error: "El usuario exisite" });
+            } else {
+                var newUser = new modelo();
+                newUser.local.password = usuario.password;
+                newUser.local.name = usuario.name;
+                newUser.local.email = usuario.email;
+                newUser.save(
+                    function(err) {
+                        if (err)
+                            throw err;
+                        res.render("login", { tittle: "Registrar usuario", error: "El usuario fue creado" });
+                    }
+                );
+            }
+        }
+    );
+    /*var usuarioPromise = new modelo({ correo: usuario.correo }).fetch();
     return usuarioPromise.then(
         function(modelo) {
             if (modelo) {
                 res.render("login", { tittle: "Registrar usuario", error: "El usuario exisite" });
             } else {
-                usuario.clave = bcrypt.hashSync(usuario.clave);
-                var modeloUsuario = new UsuarioModel.usuarios({
+                usuario.password = bcrypt.hashSync(usuario.password);
+                var modeloUsuario = new modelo({
                     name: usuario.name,
                     apellido: usuario.apellido,
                     correo: usuario.correo,
-                    clave: usuario.clave
+                    clave: usuario.password
                 });
                 modeloUsuario.save().then(function(modelo) {
                     res.render("login", { tittle: "Registrar usuario", error: "El usuario fue creado" });
                 });
             }
         }
-    );
+    );*/
 });
 
 router.post("/crearProducto", function(req, res, next) {

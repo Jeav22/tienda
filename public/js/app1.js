@@ -266,6 +266,15 @@ function modificar(pr) {
         '<label for="pwd">Cantidad:</label>' +
         '<input type="number" class="form-control" id="pwd">' +
         '</div>' +
+
+        '<div class="input-group">' +
+        '<div class="checkbox-inline">' +
+        '<label><input type="checkbox" value="">Mejor vendido</label>' +
+        '</div>'+
+        '<div class="checkbox-inline">' +
+        '<label><input type="checkbox" value="">Disponible</label>' +
+        '</div>'+
+        '</div>' +
         '<div class="form-group">' +
         '<input class = "filestyle" name="uploadedfile" type="file" />' +
         '</div>' +

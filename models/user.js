@@ -23,11 +23,12 @@ var userSchema = mongoose.Schema({
         name: String
     },
     producto: {
-        id: String,
+        id: Number,
         name: String,
-        available: String,
-        best_seller: String,
-        categories: String,
+        price: Number,
+        available: Boolean,
+        best_seller: Boolean,
+        categories: { id: String },
         img: String,
         description: String
     }

@@ -64,15 +64,20 @@ router.post("/signup", function(req, res) {
 router.post("/crearProducto", function(req, res, next) {
     var producto = req.body;
     var nuevoProducto = new modelo();
-    nuevoProducto.categoria.id = "5";
-    nuevoProducto.categoria.name = "OTRO";
+    nuevoProducto.producto.id = 1;
+    nuevoProducto.producto.name = producto.name;
+    nuevoProducto.producto.price = producto.price;
+    //nuevoProducto.producto.available = producto.available;
+    //nuevoProducto.producto.best_seller = producto.best_seller;
+    //nuevoProducto.producto.categories = producto.categories;
+    //nuevoProducto.producto.img = producto.img;
+    nuevoProducto.producto.description = producto.description;
     nuevoProducto.save(
         function(err) {
             if (err) response.json(error);
             res.redirect('/administrador');
         }
     );
-    //res.redirect('/administrador');
 });
 
 router.post("/crearCategoria", function(req, res, next) {
@@ -86,7 +91,6 @@ router.post("/crearCategoria", function(req, res, next) {
             res.redirect('/administrador');
         }
     );
-    //res.redirect('/administrador');
 });
 
 router.post("/iniciarSesionAdministrador", urlencodedParse, function(req, res, next) {

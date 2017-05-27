@@ -3,6 +3,7 @@ var router = express.Router();
 
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
+var AdministradorStrategy = require("passport-local").Strategy;
 var session = require("express-session");
 var bcrypt = require("bcrypt-nodejs");
 var UsuarioModel = require("../models/usuarios");
@@ -58,6 +59,35 @@ router.post("/signup", function(req, res) {
         }
     );
 });
+
+
+router.post("/iniciarSesionAdministrador", urlencodedParse, function(req, res, next) {
+    passport.authenticate('local', {
+            sucessRedirect: "../bienvenido",
+            failureRedirect: "/login"
+        },
+        function(err, usuario, info) {
+            console.log(usuario+info);
+            if (err) {
+                return res.render("iniciarAdministrador", { title: "Express", error: err.message +'aqui'})
+            }
+            if (!usuario) {
+                return res.render("iniciarAdministrador", { title: "Express", error: info.message + " Error de credenciales" })
+            }
+            return req.login(usuario, function(err) {
+                console.log("whaat")
+                if (err) {
+                    console.log("error1")
+                    return res.render("iniciarAdministrador", { title: "Express", error: err.message })
+                } else {
+                    console.log("ooooooooooooooookkkkkkkkkkkkkkk " + usuario.name + usuario.password);
+                    res.render('administrador', { title: 'Bienvenido', usuario: usuario });
+                }
+            });
+        }
+    )(req, res, next);
+});
+
 
 router.post("/cerrarSesion", function(req, res) {
     if (!req.isAuthenticated()) {

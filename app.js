@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 
 //Librerias para passport
 var passport = require("passport");
-var LocalStrategy = require("passport-local").Strategy;
 var AdministradorStrategy = require("passport-local").Strategy;
+var LocalStrategy = require("passport-local").Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
 var TwitterStrategy = require("passport-twitter").Strategy;
 var session = require("express-session");
@@ -27,42 +27,29 @@ var users = require('./routes/users');
 var app = express();
 
 //Configuracion passport
-passport.use(new LocalStrategy(
+/*passport.use(new LocalStrategy(
     function(correo, clave, done) {
         process.nextTick(
             function() {
-                User.findOne({ 'local.email': correo, 'local.password': clave },
+                User.findOne({ 'local.email': correo },
                     function(err, user) {
-                        if (err)
+                        if (err) {
+                            console.log("errror passport");
                             return done(err);
-                        if (user) {
+                        }
+                        if (user && bcrypt.compareSync(clave, user.local.password)) {
+                            console.log("si lo encontro local 1");
                             return done(null, user)
                         } else {
-                            return done("null");
+                            console.log("no lo encontro local");
+                            return done("null", err);
                         }
                     }
                 );
             }
         );
     }
-    /*function(correo, clave, done) {
-        new UsuarioModel.usuarios({ correo: correo }).fetch().then(
-            function(info) {
-                var usuarioInfo = info;
-                if (usuarioInfo == null) {
-                    return done(null, false, { mensaje: "Email no valido." });
-                } else {
-                    usuarioInfo = usuarioInfo.toJSON();
-                    if (!bcrypt.compareSync(clave, usuarioInfo.clave)) {
-                        return done(null, false, { mensaje: "Clave no valida." });
-                    } else {
-                        return done(null, usuarioInfo);
-                    }
-                }
-            }
-        );
-    }*/
-));
+));*/
 
 passport.use(new AdministradorStrategy(
     function(correo, clave, done) {
@@ -75,24 +62,27 @@ passport.use(new AdministradorStrategy(
                         if (user) {
                             return done(null, user)
                         } else {
-                            return done("null");
+                            User.findOne({ 'local.email': correo },
+                                function(err, user) {
+                                    if (err) {
+                                        console.log("errror passport");
+                                        return done(err);
+                                    }
+                                    if (user && bcrypt.compareSync(clave, user.local.password)) {
+                                        console.log("si lo encontro local");
+                                        return done(null, user)
+                                    } else {
+                                        console.log("no lo encontro local");
+                                        return done("Contraseña invalida");
+                                    }
+                                }
+                            );
                         }
                     }
                 );
             }
         );
     }
-    /*function(correo, clave, done) {
-        if (correo == null || clave == null) {
-            return done(null, false, { mensaje: "Faltan credenciales." });
-        } else {
-            if (correo != 'jeav22' || clave != '1234') {
-                return done(null, false, { mensaje: "Credenciales invalidas." });
-            } else {
-                return done(null, correo);
-            }
-        }
-    }*/
 ));
 
 passport.use(

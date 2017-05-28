@@ -21,10 +21,12 @@ router.post("/iniciarSesion", urlencodedParse, function(req, res, next) {
         function(err, usuario, info) {
             console.log(usuario);
             if (err) {
+                console.log("error");
                 return res.render("login", { title: "Express", error: err.message })
             }
             if (!usuario) {
-                return res.render("login", { title: "Express", error: info.message + " Error de credenciales" })
+                console.log("no es un usuario");
+                return res.render("login", { title: "Express", error: info.message + " Error de credenciales..." })
             }
             return req.login(usuario, function(err) {
                 console.log("whaat")
@@ -32,8 +34,8 @@ router.post("/iniciarSesion", urlencodedParse, function(req, res, next) {
                     console.log("error1")
                     return res.render("login", { title: "Express", error: err.message })
                 } else {
-                    console.log("ooooooooooooooookkkkkkkkkkkkkkk " + usuario.name + usuario.id);
-                    res.render('bienvenido', { title: 'Bienvenido', usuario: usuario });
+                    console.log("ooooooooooooooookkkkkkkkkkkkkkk ");
+                    res.render('bienvenido', { title: 'Bienvenido', usuario: usuario.local });
                 }
             });
         }
@@ -65,25 +67,6 @@ router.post("/signup", function(req, res) {
             }
         }
     );
-    /*var usuarioPromise = new modelo({ correo: usuario.correo }).fetch();
-    return usuarioPromise.then(
-        function(modelo) {
-            if (modelo) {
-                res.render("login", { tittle: "Registrar usuario", error: "El usuario exisite" });
-            } else {
-                usuario.password = bcrypt.hashSync(usuario.password);
-                var modeloUsuario = new modelo({
-                    name: usuario.name,
-                    apellido: usuario.apellido,
-                    correo: usuario.correo,
-                    clave: usuario.password
-                });
-                modeloUsuario.save().then(function(modelo) {
-                    res.render("login", { tittle: "Registrar usuario", error: "El usuario fue creado" });
-                });
-            }
-        }
-    );*/
 });
 
 router.post("/crearProducto", function(req, res, next) {

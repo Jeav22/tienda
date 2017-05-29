@@ -19,18 +19,30 @@ router.route('/').get(function(req, res, next) {
 
 router.get('/administrador', function(req, res, next) {
     if (!req.isAuthenticated()) {
-        res.render('iniciarAdministrador', { title: 'Express', usuario: usuario });
+        Categories.find(function(err, categoria) {
+            if (err) res.send(500, err.message);
+            console.log(categoria);
+            res.render('iniciarAdministrador', { title: 'Express', usuario: usuario, categorias: categoria });
+        });
     } else {
         var usuario = req.user;
         if (usuario != undefined) {
             usuario = req.user.toJSON();
         }
-        res.render('administrador', { tilte: "Express", usuario: usuario });
+        Categories.find(function(err, categoria) {
+            if (err) res.send(500, err.message);
+            console.log(categoria);
+            res.render('administrador', { tilte: "Express", usuario: usuario, categorias: categoria });
+        });
     }
 });
 
 router.get('/login', function(req, res, next) {
-    res.render('login', { title: 'Express' });
+    Categories.find(function(err, categoria) {
+        if (err) res.send(500, err.message);
+        console.log(categoria);
+        res.render('login', { title: 'Express', categorias: categoria });
+    });
 });
 
 router.get('/signup', function(req, res, next) {
@@ -39,15 +51,23 @@ router.get('/signup', function(req, res, next) {
 
 router.get('/bienvenido', function(req, res, next) {
 
-    if (!req.isAuthenticated()) {
-        res.render('login', { title: 'Express' });
-    } else {
-        var usuario = req.user;
-        if (usuario != undefined) {
-            usuario = req.user.toJSON();
-        }
-        res.render('bienvenido', { tilte: "Express", usuario: usuario });
-    }
+    Products.find(function(err, producto) {
+        if (err) res.send(500, err.message);
+        console.log(producto);
+        Categories.find(function(err, categoria) {
+            if (err) res.send(500, err.message);
+            console.log(categoria);
+            if (!req.isAuthenticated()) {
+                res.render('login', { title: 'Express', datos: producto, categorias: categoria });
+            } else {
+                var usuario = req.user;
+                if (usuario != undefined) {
+                    usuario = req.user.toJSON();
+                }
+                res.render('bienvenido', { tilte: "Express", usuario: usuario, datos: producto, categorias: categoria });
+            }
+        });
+    });
 });
 
 module.exports = router;

@@ -22,20 +22,40 @@ router.post("/iniciarSesion", urlencodedParse, function(req, res, next) {
             console.log(usuario);
             if (err) {
                 console.log("error");
-                return res.render("login", { title: "Express", error: err.message })
+                modeloCategorias.find(function(errr, categoria) {
+                    if (errr) res.send(500, errr.message);
+                    console.log(categoria);
+                    return res.render("login", { title: "Express", error: err.message, categorias: categoria })
+                });
             }
             if (!usuario) {
                 console.log("no es un usuario");
-                return res.render("login", { title: "Express", error: info.message + " Error de credenciales..." })
+                modeloCategorias.find(function(errr, categoria) {
+                    if (errr) res.send(500, errr.message);
+                    console.log(categoria);
+                    return res.render("login", { title: "Express", error: info.message = " Error de credenciales...", categorias: categoria })
+                });
             }
             return req.login(usuario, function(err) {
                 console.log("whaat")
                 if (err) {
                     console.log("error1")
-                    return res.render("login", { title: "Express", error: err.message })
+                    modeloCategorias.find(function(errr, categoria) {
+                        if (errr) res.send(500, errr.message);
+                        console.log(categoria);
+                        return res.render("login", { title: "Express", error: err.message, categorias: categoria })
+                    });
                 } else {
                     console.log("ooooooooooooooookkkkkkkkkkkkkkk ");
-                    res.render('bienvenido', { title: 'Bienvenido', usuario: usuario.local });
+                    modeloProductos.find(function(errr, producto) {
+                        if (errr) res.send(500, errr.message);
+                        console.log(producto);
+                        modeloCategorias.find(function(errr, categoria) {
+                            if (errr) res.send(500, errr.message);
+                            console.log(categoria);
+                            res.render('bienvenido', { title: 'Bienvenido', usuario: usuario.local, datos: producto, categorias: categoria });
+                        });
+                    });
                 }
             });
         }
@@ -115,19 +135,39 @@ router.post("/SesionAdministrador", urlencodedParse, function(req, res, next) {
         function(err, usuario, info) {
             console.log(usuario + info);
             if (err) {
-                return res.render("iniciarAdministrador", { title: "Express", error: 'El usuario no existe' });
+                modeloCategorias.find(function(errr, categoria) {
+                    if (errr) res.send(500, errr.message);
+                    console.log(categoria);
+                    return res.render("iniciarAdministrador", { title: "Express", error: 'El usuario no existe', categorias: categoria });
+                });
             }
             if (!usuario) {
-                return res.render("iniciarAdministrador", { title: "Express", error: info.message });
+                modeloCategorias.find(function(errr, categoria) {
+                    if (errr) res.send(500, errr.message);
+                    console.log(categoria);
+                    return res.render("iniciarAdministrador", { title: "Express", error: info.message, categorias: categoria });
+                });
             }
             return req.login(usuario, function(err) {
                 console.log("whaat admin")
                 if (err) {
                     console.log("error1 admin");
-                    return res.render("iniciarAdministrador", { title: "Express", error: err.message });
+                    modeloCategorias.find(function(errr, categoria) {
+                        if (errr) res.send(500, errr.message);
+                        console.log(categoria);
+                        return res.render("iniciarAdministrador", { title: "Express", error: err.message, categorias: categoria });
+                    });
                 } else {
                     console.log("ooooooooooooooookkkkkkkkkkkkkkk admin");
-                    res.render('administrador', { title: 'Bienvenido', usuario: usuario });
+                    modeloProductos.find(function(errr, producto) {
+                        if (errr) res.send(500, errr.message);
+                        console.log(producto);
+                        modeloCategorias.find(function(errr, categoria) {
+                            if (errr) res.send(500, errr.message);
+                            console.log(categoria);
+                            res.render('administrador', { title: 'Bienvenido', usuario: usuario, datos: producto, categorias: categoria });
+                        });
+                    });
                 }
             });
         }

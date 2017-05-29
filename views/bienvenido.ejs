@@ -4,5 +4,46 @@
                              <% }else{ %>
                              <%= usuario.name %>
                              <% } %> </var></h3>
+
+    <div class="row">
+            <% for (var i = 0; i < datos.length; i++) { %>
+
+            <div class="col-md-4">
+                <div class=" col-lg-11 col-md-12 col-sm-6 <% if (datos[i].price < 30.000) { %> 
+                <%= mtr+" " %> 
+                <% } %>
+                 <% if (10.000 > datos[i].price) {} else { %>
+                  <%= 'med ' %> 
+                  <% } %>
+                   <% for (var j = 0; j < datos[i].categories.length; j++) { %>
+                    <%= 'c'+datos[i].categories[j]+' ' %>
+                     <% } %>
+                      <%= 'bs'+ datos[i].best_seller + ' p'+datos[i].available %> ">
+                    <div class="thumbnail" >
+                        <h4 class="text-center"><span class="label label-info"><%= datos[i].categories %></span></h4>
+                        <img src="' + datos[i].img + '" class="img-responsive">
+                        <div class="caption">
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <h3><%= datos[i].name %></h3>
+                                </div>
+                                <div class="col-md-12 col-xs-12 price">
+                                    <h3><label>$ <%= + datos[i].price %></label></h3>
+                                </div>
+                            </div>
+                            <p><%= datos[i].description %></p>
+                            <div class="row">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-success btn-product my-cart-btn" data-id=" <%= datos[i]._id %> " data-name=" <%= datos[i].name %> " data-summary="summary 1" data-price=" <%= datos[i].price %> " data-quantity="1" data-image=" <%= datos[i].img %> " ><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a></div>
+                        </div>
+                        <p></p>
+                    </div>
+                            
+                        </div>
+                    </div>
+                </div>
+           <% } %>
+            </div>
+        </div>                             
     <div class="tienda"> </div>
 <% include partials/footer %>

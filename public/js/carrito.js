@@ -31,7 +31,7 @@
              console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
          },
          checkoutCart: function(products, totalPrice, totalQuantity) {
-             var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
+             var checkoutString = "Total Precio: " + totalPrice + "\nTotal Cantidad: " + totalQuantity;
              checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
              $.each(products, function() {
                  checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
@@ -42,7 +42,7 @@
          getDiscountPrice: function(products, totalPrice, totalQuantity) {
              console.log("calculating discount", products, totalPrice, totalQuantity);
              if (user != undefined)
-                 return totalPrice * 0.5;
+                 return totalPrice * 0.9;
              else
                  return totalPrice;
          }

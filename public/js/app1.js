@@ -26,49 +26,7 @@ $(document).ready(function() {
 
 //---Mostrar Contenido----------------------------------------------
 function mostrar() {
-    var p = productos;
-    var org = "";
-    org += '<div class="row">' +
-        '<div class="col-md-12">';
-    for (var i = 0; i < p.length; i++) {
-        org += '<div class="col-sm-6 col-md-4 ';
-        if (p[i].price < 30.000) {
-            org += " mtr ";
-        }
-        if (10.000 > p[i].price) {} else {
-            org += " med ";
-        }
-        for (var j = 0; j < p[i].categories.length; j++) {
-            org += "c" + p[i].categories[j] + " ";
-        }
-        org += ' bs' + p[i].best_seller + ' p' + p[i].available + ' ">' +
-            '<div class="thumbnail" >' +
-            '<h4 class="text-center"><span class="label label-info">' + p[i].categories + '</span></h4>' +
-            '<img src="' + p[i].img + '" class="img-responsive">' +
-            '<div class="caption">' +
-            '<div class="row">' +
-            '<div class="col-md-6 col-xs-6">' +
-            '<h3>' + p[i].name + '</h3>' +
-            '</div>' +
-            '<div class="col-md-6 col-xs-6 price">' +
-            '<h3><label>$' + p[i].price + '</label></h3>' +
-            '</div>' +
-            '</div>' +
-            '<p>' + p[i].description + '</p>' +
-            '<div class="row">' +
-            '<div class="col-md-6">' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            '<a href="#" class="btn btn-success btn-product my-cart-btn" data-id="' + p[i].id + '" data-name="' + p[i].name + '" data-summary="summary 1" data-price="' + p[i].price + '" data-quantity="1" data-image="' + p[i].img + '" ><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a></div>' +
-            '</div>' +
-            '<p> </p>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-    }
-    org += '</div>' +
-        '</div>' +
-        '<script src="../js/carrito.js"></script>';
+        org = '<script src="../js/carrito.js"></script>';
     $(".tienda").html(org);
 }
 

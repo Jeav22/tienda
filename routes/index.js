@@ -1,7 +1,7 @@
 var express = require('express');
 var mongoose = require("mongoose");
 var Products = require("../models/products");
-var Categories = require("../models/products");
+var Categories = require("../models/categories");
 var router = express.Router();
 
 /* GET home page. */

@@ -1,10 +1,9 @@
 <% include partials/header %>
-    <var id="datos"> <%= datos %> </var>
-    <var id="categorias"> <%= categorias %> </var>
         <div class="row">
-            <div class="col-md-12">
-            <% for (var i = 0; i < datos.length; i++) { console.log(datos[i]._id) %>
-                <div class="col-sm-6 col-md-4 <% if (datos[i].price < 30.000) { %> 
+            <% for (var i = 0; i < datos.length; i++) { %>
+
+            <div class="col-md-4">
+                <div class=" col-lg-11 col-md-12 col-sm-6 <% if (datos[i].price < 30.000) { %> 
                 <%= mtr+" " %> 
                 <% } %>
                  <% if (10.000 > datos[i].price) {} else { %>
@@ -26,10 +25,10 @@
                                     <h3><label>$ <%= + datos[i].price %></label></h3>
                                 </div>
                             </div>
-                            <p><% datos[i].description %></p>
+                            <p><%= datos[i].description %></p>
                             <div class="row">
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-success btn-product my-cart-btn" data-id=" <%= datos[i]._id %> " data-name=" <%= datos[i].name %> " data-summary="summary 1" data-price=" <%= datos[i].price %> " data-quantity="1" data-image=" <%= datos[i].image %> " ><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a></div>
+                            <a href="#" class="btn btn-success btn-product my-cart-btn" data-id=" <%= datos[i]._id %> " data-name=" <%= datos[i].name %> " data-summary="summary 1" data-price=" <%= datos[i].price %> " data-quantity="1" data-image=" <%= datos[i].img %> " ><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a></div>
                         </div>
                         <p></p>
                     </div>

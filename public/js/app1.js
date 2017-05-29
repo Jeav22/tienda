@@ -3,6 +3,7 @@ var productos;
 var categorias;
 var json;
 var user = document.getElementById("usuario");
+var datos = document.getElementById("datos");
 $(document).ready(function() {
     $.ajax({
         type: 'GET',
@@ -16,7 +17,7 @@ $(document).ready(function() {
             categorias = data.categories;
             sesionDropdown();
             CargarCategorias();
-            mostrar(productos);
+            mostrar();
             modificar(productos);
         }
     });
@@ -24,7 +25,8 @@ $(document).ready(function() {
 
 
 //---Mostrar Contenido----------------------------------------------
-function mostrar(p) {
+function mostrar() {
+    var p = productos;
     var org = "";
     org += '<div class="row">' +
         '<div class="col-md-12">';

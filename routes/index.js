@@ -1,15 +1,19 @@
 var express = require('express');
 var mongoose = require("mongoose");
 var Products = require("../models/products");
+var Categories = require("../models/products");
 var router = express.Router();
 
 /* GET home page. */
 router.route('/').get(function(req, res, next) {
     Products.find(function(err, producto) {
         if (err) res.send(500, err.message);
-        console.log('GET /clients');
         console.log(producto);
-        res.render('index', { title: 'Express', datos: producto });
+        Categories.find(function(err, categoria) {
+            if (err) res.send(500, err.message);
+            console.log(categoria);
+            res.render('index', { title: 'Express', datos: producto, categorias: categoria });
+        });
     });
 });
 

@@ -45,6 +45,14 @@ router.get('/login', function(req, res, next) {
     });
 });
 
+router.get('/chat', function(req, res, next) {
+    Categories.find(function(err, categoria) {
+        if (err) res.send(500, err.message);
+        console.log(categoria);
+        res.render('chat', { title: 'Express', categorias: categoria, usuario: req.usuario });
+    });
+});
+
 router.get('/signup', function(req, res, next) {
     Categories.find(function(err, categoria) {
         if (err) res.send(500, err.message);

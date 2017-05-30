@@ -69,9 +69,17 @@ router.post("/signup", function (req, res) {
     modelo.findOne({ 'local.email': usuario.email },
         function (err, user) {
             if (err)
-                res.render("login", { tittle: "Registrar usuario", error: err.message });
+                modeloCategorias.find(function (errr, categoria) {
+                    if (errr) res.send(500, errr.message);
+                    console.log(categoria);
+                    res.render("login", { tittle: "Registrar usuario", error: err.message, categorias: categoria });
+                });
             if (user) {
-                res.render("login", { tittle: "Registrar usuario", error: "El usuario exisite" });
+                modeloCategorias.find(function (errr, categoria) {
+                    if (errr) res.send(500, errr.message);
+                    console.log(categoria);
+                    res.render("login", { tittle: "Registrar usuario", error: "El usuario exisite", categorias: categoria });
+                });
             } else {
                 var newUser = new modelo();
                 newUser.local.password = usuario.password;
@@ -81,7 +89,12 @@ router.post("/signup", function (req, res) {
                     function (err) {
                         if (err)
                             throw err;
-                        res.render("login", { tittle: "Registrar usuario", error: "El usuario fue creado" });
+                        modeloCategorias.find(function (errr, categoria) {
+                            if (errr) res.send(500, errr.message);
+                            console.log(categoria);
+                            res.render("login", { tittle: "Registrar usuario", error: "El usuario fue creado", categorias: categoria });
+
+                        });
                     }
                 );
             }
@@ -104,7 +117,7 @@ router.post("/crearProducto", function (req, res, next) {
     nuevoProducto.available = producto.available;
     nuevoProducto.best_seller = producto.best_seller;
     //nuevoProducto.categories = producto.categories;
-    //nuevoProducto.img = producto.img;
+    nuevoProducto.img = producto.img;
     nuevoProducto.description = producto.description;
     nuevoProducto.save(
         function (err) {

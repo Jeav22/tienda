@@ -247,7 +247,7 @@
         $cartTable.append(
           '<tr style="color: red">' +
           '<td></td>' +
-          '<td><strong>Total (Incluyendo descuento 10%)</strong></td>' +
+          '<td><strong>-10% (*Para usuarios registrados)</strong></td>' +
           '<td></td>' +
           '<td></td>' +
           '<td><strong id="' + idDiscountPrice + '"></strong></td>' +

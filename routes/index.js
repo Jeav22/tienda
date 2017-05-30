@@ -46,7 +46,11 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-    res.render('signup', { title: 'Express' });
+    Categories.find(function(err, categoria) {
+        if (err) res.send(500, err.message);
+        console.log(categoria);
+    res.render('signup', { title: 'Express', categorias: categoria });
+    });
 });
 
 router.get('/bienvenido', function(req, res, next) {

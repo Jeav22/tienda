@@ -1,12 +1,56 @@
 <% include partials/header %>
+<div class="fondo">
+<section class="section-white">
+  <div class="container">
+
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="../imagenes/1.jpg" alt="...">
+          <div class="carousel-caption">
+            <h2></h2>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../imagenes/2.jpg" alt="...">
+          <div class="carousel-caption">
+            <h2></h2>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../imagenes/3.jpg" alt="...">
+          <div class="carousel-caption">
+            <h2></h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+    </div>
+<h1></h1>
         <div class="row">
             <% for (var i = 0; i < datos.length; i++) { %>
 
             <div class="col-md-4">
-                <div class=" col-lg-11 col-md-12 col-sm-6 <% if (datos[i].price < 30.000) { %> 
-                <%= mtr+" " %> 
+                <div class=" col-lg-11 col-md-12 col-sm-6 <% if (datos[i].price < 30000000) { %> 
+                <%= 'mtr ' %> 
                 <% } %>
-                 <% if (10.000 > datos[i].price) {} else { %>
+                 <% if (50000000 > datos[i].price) {} else { %>
                   <%= 'med ' %> 
                   <% } %>
                    <% for (var j = 0; j < datos[i].categories.length; j++) { %>
@@ -15,7 +59,7 @@
                       <%= 'bs'+ datos[i].best_seller + ' p'+datos[i].available %> ">
                     <div class="thumbnail" >
                         <h4 class="text-center"><span class="label label-info"><%= datos[i].categories %></span></h4>
-                        <img src="<%= datos[i].img %>" class="img-responsive">
+                        <img src="<%= datos[i].img %> " class="img-responsive" >
                         <div class="caption">
                             <div class="row">
                                 <div class="col-md-12 col-xs-12">
@@ -41,5 +85,5 @@
         </div>
 
     <div class="tienda"> </div>
-
+<div>
 <% include partials/footer %>

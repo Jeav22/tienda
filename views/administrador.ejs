@@ -1,7 +1,142 @@
 <% include partials/header%>
-<var id="usuario"> <% if(usuario.a != undefined ){ %>
-                             <%= usuario.administrador.name %> 
-                             <% } %> </var></h3>
-<div class="modificar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">Productos</a>
+            <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
+                <% for (var i = 0; i < datos.length; i++) { %>
+                <li><a href=" #vtab<%= i+1 %> " data-toggle="tab"> <%= datos[i].name %> </a></li>
+                <% } %>
+            </ul>
+            <h1></h1>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-plus"></span> Agregar Producto</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Nuevo Producto</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="/users/crearProducto">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                    <input name="name" type="text" class="form-control" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="control-label">Descripción:</label>
+                                    <textarea name="description" type="text" class="form-control" id="message-text"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="control-label">Precio:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input name="price" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                    </div>
+                                </div>
+                                <label for="message-text" class="control-label">Categorias:</label>
+                                <br>
+                                <% for (var i = 0; i < categorias.length; i++) { %>
+                                <div class="checkbox-inline">
+                                    <label><input type="checkbox" value=""> <%= categorias[i].name %> </label>
+                                </div>
+                                <% } %>
+                                <br>
+                                <div class="form-group">
+                                    <label for="pwd">Cantidad:</label>
+                                    <input type="number" class="form-control" id="pwd">
+                                </div>
+                                <div class="input-group">
+                                    <div class="checkbox-inline">
+                                        <label><input name="best_seller" type="checkbox" value="true">Mejor vendido</label>
+                                    </div>
+                                <div class="checkbox-inline">
+                                    <label><input name="available" type="checkbox" value="true">Disponible</label>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name="img" class = "filestyle" name="uploadedfile" type="file" />
+                                </div>
+                                <input type="hidden" name="usuario" value="<%= usuario %> ">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1></h1>
+            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Agregar Categoria</button>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label for="message-text" class="control-label">Categorias existentes :</label>
+                            <br>
+                            <% for (var i = 0; i < categorias.length; i++) { %>
+                            <label><%= categorias[i].name %></label>
+                            <br>
+                            <% } %>
+                            <form action="/users/crearCategoria" method="POST">
+                                <div class="form-group">
+                                    <h3></h3>
+                                    <label for="email">ID:</label>
+                                    <input name="categori_id" type="text" class="form-control" id="di_categoria" placeholder="Ingrese el ID de la categoria" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Nombre:</label>
+                                    <input name="name" type="text" class="form-control" id="pwd" placeholder="Ingrese el nombre de la categoria" name="pwd">
+                                </div>
+                                <input type="hidden" name="usuario" value="<%= usuario %> ">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Agregar Categoria</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        <h1></h1>
+            <div class="col-sm-9">
+                <div class="tab-content">
+                    <% for (var i = 0; i < datos.length; i++) { %>
+                        <div role="tabpanel" class="tab-pane " id="vtab<%= (i + 1) %>">
+                            <img src="<%= datos[i].img %>" />
+                            <h1><%= datos[i].name %></h1>
+                            <h3><%= datos[i].description %></h3>
+                            <h3> Precio: $<%= datos[i].price %></h3>
+                            <% var disponible = ""; %>
+                            <% if (datos[i].available == true) { %>
+                                <% disponible = "Si"; %>
+                                <% } else { %>
+                                <% disponible = "No"; %>
+                            <% } %>
+                            <% var mejorVendido = ""; %>
+                            <% if (datos[i].best_seller == true) { %>
+                                <% mejorVendido = "Si"; %>
+                            <% } else { %>
+                            <% mejorVendido = "No"; %>
+                            <% } %>
+                            <h4>Disponibilidad: <%= disponible %></h4>
+                            <h4>Mejor vendido: <%= mejorVendido %></h4>
+                            <h4>Categorias: <%= datos[i].categories %> </h4>
+                            <a href="#" class="btn btn-info btn-lg btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span> Eliminar Producto
+                            </a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <% include partials/footer %>
